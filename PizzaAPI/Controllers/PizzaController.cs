@@ -16,10 +16,17 @@ namespace PizzaAPI.Controllers
     public class PizzaController : Controller
     {
 
-        [HttpGet]
-        public IEnumerable<Pizza> Get()
+        [HttpGet("pizza/{id}")]
+        public ActionResult<IEnumerable<Pizza>> Get(int? id = null)
         {
-            return PizzaService.getAll();
+            try
+            {
+                return Ok(PizzaService.GetOnePizzaOrAll(id));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }
